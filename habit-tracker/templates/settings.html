@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Settings</title>
+
+<style>
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial;
+    background:#f4f6fb;
+}
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+aside{
+    width:240px;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:white;
+    padding:25px;
+}
+aside h2{text-align:center;margin-bottom:30px}
+aside a{
+    display:block;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#c7d2fe;
+}
+aside a:hover{background:#6366f1;color:white}
+
+/* MAIN */
+main{flex:1;padding:40px}
+
+/* CARD */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:22px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    margin-bottom:25px;
+}
+
+/* SECTION */
+.section-title{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+/* ROW */
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+.row:last-child{border-bottom:none}
+
+/* BADGE */
+.badge{
+    padding:4px 12px;
+    border-radius:999px;
+    font-size:12px;
+    background:#dcfce7;
+    color:#166534;
+}
+
+/* INPUTS */
+select,input{
+    padding:8px 12px;
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+}
+
+/* BUTTON */
+button{
+    background:#6366f1;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+button.secondary{
+    background:#e5e7eb;
+    color:#0f172a;
+}
+
+/* TOGGLE */
+.toggle{
+    width:44px;
+    height:24px;
+    background:#cbd5f5;
+    border-radius:999px;
+    position:relative;
+}
+.toggle::after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:white;
+    border-radius:50%;
+    top:3px;
+    left:3px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside>
+    <h2>🚀 Habity</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/today">Today</a>
+    <a href="/streaks">Streaks</a>
+    <a href="/analytics">Analytics</a>
+    <a href="/reminders">Reminders</a>
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+</aside>
+
+<!-- MAIN -->
+<main>
+
+<h1>⚙️ Settings</h1>
+<p style="color:#64748b">Personalize your Habity experience</p>
+
+<!-- ACCOUNT -->
+<div class="card">
+<div class="section-title">👤 Account</div>
+
+<div class="row">
+    <span>Username</span>
+    <strong>viswam</strong>
+</div>
+<div class="row">
+    <span>Account Status</span>
+    <span class="badge">Active</span>
+</div>
+<div class="row">
+    <span>Change Display Name</span>
+    <input placeholder="New name">
+</div>
+<div class="row">
+    <span>Change Password</span>
+    <button class="secondary">Update</button>
+</div>
+</div>
+
+<!-- APPEARANCE -->
+<div class="card">
+<div class="section-title">🎨 Appearance</div>
+
+<div class="row">
+    <span>Theme</span>
+    <select>
+        <option>Light</option>
+        <option>Dark</option>
+        <option>Auto</option>
+    </select>
+</div>
+<div class="row">
+    <span>Accent Color</span>
+    <input type="color">
+</div>
+<div class="row">
+    <span>Compact Mode</span>
+    <div class="toggle"></div>
+</div>
+<div class="row">
+    <span>Font Size</span>
+    <select>
+        <option>Small</option>
+        <option selected>Medium</option>
+        <option>Large</option>
+    </select>
+</div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="card">
+<div class="section-title">🔔 Notifications</div>
+
+<div class="row"><span>Email Alerts</span><div class="toggle"></div></div>
+<div class="row"><span>Reminder Alerts</span><div class="toggle"></div></div>
+<div class="row"><span>Sound Effects</span><div class="toggle"></div></div>
+<div class="row"><span>Daily Summary</span><div class="toggle"></div></div>
+</div>
+
+<!-- PRODUCTIVITY -->
+<div class="card">
+<div class="section-title">🧠 Productivity</div>
+
+<div class="row"><span>Smart Suggestions</span><div class="toggle"></div></div>
+<div class="row"><span>Focus Mode</span><div class="toggle"></div></div>
+<div class="row">
+    <span>Weekly Goal</span>
+    <input placeholder="e.g. 5 habits">
+</div>
+</div>
+
+<!-- GAMIFICATION -->
+<div class="card">
+<div class="section-title">🏆 Gamification</div>
+
+<div class="row"><span>Show Badges</span><div class="toggle"></div></div>
+<div class="row"><span>Streak Freeze</span><div class="toggle"></div></div>
+</div>
+
+<!-- SYSTEM -->
+<div class="card">
+<div class="section-title">🔐 System</div>
+
+<div class="row">
+    <span>Export Data</span>
+    <button class="secondary">Download</button>
+</div>
+<div class="row">
+    <span>Reset Preferences</span>
+    <button class="secondary">Reset</button>
+</div>
+</div>
+
+</main>
+</div>
+
+</body>
+</html>

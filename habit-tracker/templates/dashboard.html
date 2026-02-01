@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+/* ===== BASE ===== */
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial;
+    background:#f4f6fb;
+    color:#0f172a;
+}
+.layout{display:flex;min-height:100vh}
+
+/* ===== SIDEBAR ===== */
+aside{
+    width:240px;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:white;
+    padding:25px;
+}
+aside h2{text-align:center;margin-bottom:30px}
+aside a{
+    display:block;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#c7d2fe;
+    transition:0.3s;
+}
+aside a:hover{background:#6366f1;color:white}
+
+/* ===== MAIN ===== */
+main{flex:1;padding:40px}
+
+/* ===== CARDS ===== */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    margin-bottom:25px;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-wrap{
+    background:#e5e7eb;
+    border-radius:999px;
+    overflow:hidden;
+    height:14px;
+}
+.progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#22c55e,#4ade80);
+    width:{{ (habits|selectattr("done")|list|length / (habits|length if habits|length else 1))*100 }}%;
+}
+
+/* ===== ADD HABIT FORM ===== */
+.add-form{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+.input-habit{
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    font-size:14px;
+    width:220px;
+}
+.input-habit:focus{outline:none;border-color:#6366f1}
+
+.priority-select{
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* ===== BUTTONS ===== */
+.btn-main{
+    background:linear-gradient(90deg,#6366f1,#4f46e5);
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+.btn-main:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(99,102,241,0.4);
+}
+
+.btn{
+    background:#22c55e;
+    color:white;
+    padding:8px 16px;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.btn-ghost{
+    background:none;
+    border:none;
+    color:#6366f1;
+    cursor:pointer;
+    margin-left:8px;
+    font-size:16px;
+}
+
+/* ===== HABITS ===== */
+.habit-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 10px;
+    border-bottom:1px solid #e5e7eb;
+}
+.habit-left{display:flex;flex-direction:column}
+.habit-name{font-weight:600}
+.habit-meta{font-size:13px;color:#64748b}
+
+/* ===== TAGS ===== */
+.tag{
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    margin-right:6px;
+}
+.health{background:#bbf7d0}
+
+/* ===== PRIORITY ===== */
+.priority-high{color:#dc2626;font-weight:600}
+.priority-medium{color:#ca8a04;font-weight:600}
+.priority-low{color:#16a34a;font-weight:600}
+
+/* ===== STATUS ===== */
+.done{color:#16a34a;font-weight:600}
+.freeze{color:#0ea5e9;margin-left:6px}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- ===== SIDEBAR ===== -->
+<aside>
+    <h2>🚀 Habity</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/today">Today</a>
+    <a href="/streaks">Streaks</a>
+    <a href="/analytics">Analytics</a>
+    <a href="/reminders">Reminders</a>
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+<h1>📊 Dashboard</h1>
+
+<!-- MICRO INSIGHT -->
+<p>
+{% if habits and habits|selectattr("done")|list|length == habits|length %}
+🎯 Perfect day! All habits completed.
+{% elif habits %}
+⚠️ A few habits still need attention.
+{% else %}
+➕ Start by adding your first habit.
+{% endif %}
+</p>
+
+<!-- PROGRESS -->
+<div class="card">
+<h3>Today’s Progress</h3>
+<div class="progress-wrap">
+    <div class="progress-bar"></div>
+</div>
+</div>
+
+<!-- ADD HABIT -->
+<div class="card">
+<form method="POST" class="add-form">
+    <input class="input-habit" name="habit" placeholder="Add new habit" required>
+
+    <select class="priority-select" name="priority">
+        <option value="High">🔥 High</option>
+        <option value="Medium">⚡ Medium</option>
+        <option value="Low">🌱 Low</option>
+    </select>
+
+    <button class="btn-main">➕ Add Habit</button>
+</form>
+</div>
+
+<!-- HABITS -->
+<div class="card">
+{% for h in habits %}
+<div class="habit-row">
+
+    <div class="habit-left">
+        <span class="habit-name">
+            {{ h.name }}
+            {% if h.streak >= 3 %}
+            <span class="freeze">❄️</span>
+            {% endif %}
+        </span>
+
+        <span class="habit-meta">
+            <span class="tag health">Health</span>
+            <span class="priority-high">● High Priority</span>
+        </span>
+    </div>
+
+    <div>
+        🔥 {{ h.streak }}
+        {% if not h.done %}
+            <a class="btn" href="/done/{{ h.id }}">Done</a>
+        {% else %}
+            <span class="done">✔ Completed</span>
+        {% endif %}
+        <button class="btn-ghost">✏️</button>
+        <button class="btn-ghost">🗄️</button>
+    </div>
+
+</div>
+{% else %}
+<p>No habits added yet.</p>
+{% endfor %}
+</div>
+
+</main>
+</div>
+
+</body>
+</html>

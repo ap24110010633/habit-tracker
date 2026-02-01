@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reminders</title>
+
+<style>
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial;
+    background:#f4f6fb;
+}
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+aside{
+    width:240px;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:white;
+    padding:25px;
+}
+aside h2{text-align:center;margin-bottom:30px}
+aside a{
+    display:block;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#c7d2fe;
+}
+aside a:hover{background:#6366f1;color:white}
+
+/* MAIN */
+main{flex:1;padding:40px}
+
+/* CARD */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:22px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    margin-bottom:25px;
+}
+
+/* FORM */
+.form-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+input, select{
+    padding:10px 14px;
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+    font-size:14px;
+}
+button{
+    background:#6366f1;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+button:hover{opacity:0.9}
+
+/* TAGS */
+.tag{
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+}
+.high{background:#fee2e2;color:#991b1b}
+.medium{background:#fef3c7;color:#92400e}
+.low{background:#dcfce7;color:#166534}
+
+/* REMINDER ROW */
+.reminder{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 10px;
+    border-bottom:1px solid #e5e7eb;
+}
+.left{
+    display:flex;
+    flex-direction:column;
+}
+.note{font-weight:600}
+.meta{font-size:13px;color:#64748b}
+
+/* STATUS */
+.pending{color:#ca8a04}
+.done{color:#16a34a}
+
+/* MINI STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+.metric{
+    font-size:28px;
+    font-weight:700;
+}
+.label{color:#64748b;font-size:14px}
+</style>
+
+</head>
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside>
+    <h2>🚀 Habity</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/today">Today</a>
+    <a href="/streaks">Streaks</a>
+    <a href="/analytics">Analytics</a>
+    <a href="/reminders">Reminders</a>
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+</aside>
+
+<!-- MAIN -->
+<main>
+
+<h1>⏰ Reminders</h1>
+<p class="label">Never miss what matters most</p>
+
+<!-- QUICK STATS -->
+<div class="stats">
+    <div class="card">
+        <div class="label">Today</div>
+        <div class="metric">2</div>
+    </div>
+    <div class="card">
+        <div class="label">Upcoming</div>
+        <div class="metric">5</div>
+    </div>
+    <div class="card">
+        <div class="label">Completed</div>
+        <div class="metric">8</div>
+    </div>
+</div>
+
+<!-- ADD REMINDER -->
+<div class="card">
+<h3>➕ Add Reminder</h3>
+<div class="form-row">
+    <input type="date">
+    <input type="time">
+    <select>
+        <option>High Priority</option>
+        <option>Medium Priority</option>
+        <option>Low Priority</option>
+    </select>
+    <input placeholder="Reminder note">
+    <button>Add</button>
+</div>
+</div>
+
+<!-- REMINDER LIST -->
+<div class="card">
+<h3>📋 Your Reminders</h3>
+
+<div class="reminder">
+    <div class="left">
+        <span class="note">Drink water 💧</span>
+        <span class="meta">Today · 8:00 AM</span>
+    </div>
+    <div>
+        <span class="tag high">High</span>
+        <span class="pending">⏳ Pending</span>
+    </div>
+</div>
+
+<div class="reminder">
+    <div class="left">
+        <span class="note">Evening walk 🚶</span>
+        <span class="meta">Tomorrow · 6:30 PM</span>
+    </div>
+    <div>
+        <span class="tag low">Low</span>
+        <span class="done">✔ Done</span>
+    </div>
+</div>
+
+<p class="label" style="margin-top:15px">
+💡 Tip: Completing reminders on time improves consistency score.
+</p>
+
+</div>
+
+</main>
+</div>
+
+</body>
+</html>

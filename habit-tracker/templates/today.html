@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Today</title>
+
+<style>
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial;
+    background:#f4f6fb;
+}
+.layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+aside{
+    width:240px;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:white;
+    padding:25px;
+}
+aside h2{text-align:center;margin-bottom:30px}
+aside a{
+    display:block;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-decoration:none;
+    color:#c7d2fe;
+}
+aside a:hover{background:#6366f1;color:white}
+
+/* MAIN */
+main{flex:1;padding:40px}
+
+/* CARDS */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+    margin-bottom:25px;
+}
+
+/* HABITS */
+.habit{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+.meta{
+    font-size:13px;
+    color:#64748b;
+}
+
+/* TAGS */
+.tag{padding:4px 10px;border-radius:999px;font-size:12px}
+.high{background:#fee2e2;color:#b91c1c}
+.medium{background:#fef3c7;color:#92400e}
+.low{background:#dcfce7;color:#166534}
+
+.btn{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:10px;
+    cursor:pointer;
+}
+.undo{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+/* MOOD */
+.mood span{
+    font-size:26px;
+    margin-right:10px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside>
+    <h2>🚀 Habity</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/today">Today</a>
+    <a href="/streaks">Streaks</a>
+    <a href="/analytics">Analytics</a>
+    <a href="/reminders">Reminders</a>
+    <a href="/settings">Settings</a>
+    <a href="/logout">Logout</a>
+</aside>
+
+<!-- MAIN -->
+<main>
+
+<h1>📅 Today</h1>
+
+<!-- MOOD -->
+<div class="card mood">
+    <h3>How do you feel today?</h3>
+    <span>🙂</span>
+    <span>😐</span>
+    <span>😞</span>
+</div>
+
+<!-- HABITS -->
+<div class="card">
+{% for h in habits %}
+<div class="habit">
+    <div>
+        <strong>{{ h.name }}</strong>
+        <div class="meta">
+            ⏱ 20 mins • 
+            <span class="tag high">High</span>
+            • 📝 Felt energetic
+        </div>
+    </div>
+
+    <div>
+        {% if h.done %}
+            <span style="color:#16a34a;font-weight:600">✔ Completed</span>
+            <button class="btn undo">Undo</button>
+        {% else %}
+            <a class="btn" href="/done/{{ h.id }}">Done</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+</div>
+
+<!-- REFLECTION -->
+<div class="card">
+<h3>🧠 Daily Reflection</h3>
+<textarea style="width:100%;height:80px;border-radius:12px;border:1px solid #e5e7eb;padding:10px"
+placeholder="Write about today..."></textarea>
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
